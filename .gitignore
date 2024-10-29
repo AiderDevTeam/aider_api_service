@@ -1,0 +1,5 @@
+.idea
+mysql1
+mysqldata
+.env
+docker-compose.yml

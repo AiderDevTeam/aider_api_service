@@ -1,0 +1,32 @@
+  2023-08-22 11:22:19 AppierSign\RealtimeModel\Jobs\FirestoreJob ..... RUNNING
+  2023-08-22 11:22:19 AppierSign\RealtimeModel\Jobs\FirestoreJob  195.98ms DONE
+  2023-08-22 11:33:44 AppierSign\RealtimeModel\Jobs\FirestoreJob ..... RUNNING
+  2023-08-22 11:33:44 AppierSign\RealtimeModel\Jobs\FirestoreJob  166.81ms DONE
+  2023-08-22 12:28:13 AppierSign\RealtimeModel\Jobs\FirestoreJob ..... RUNNING
+  2023-08-22 12:28:13 AppierSign\RealtimeModel\Jobs\FirestoreJob  212.29ms DONE
+  2023-08-22 13:12:53 AppierSign\RealtimeModel\Jobs\FirestoreJob ..... RUNNING
+  2023-08-22 13:12:53 AppierSign\RealtimeModel\Jobs\FirestoreJob  195.70ms DONE
+  2023-08-22 13:22:32 AppierSign\RealtimeModel\Jobs\FirestoreJob ..... RUNNING
+  2023-08-22 13:22:33 AppierSign\RealtimeModel\Jobs\FirestoreJob  162.08ms DONE
+  2023-08-22 13:56:17 AppierSign\RealtimeModel\Jobs\FirestoreJob ..... RUNNING
+  2023-08-22 13:56:18 AppierSign\RealtimeModel\Jobs\FirestoreJob  168.24ms DONE
+  2023-08-22 14:17:34 AppierSign\RealtimeModel\Jobs\FirestoreJob ..... RUNNING
+  2023-08-22 14:17:35 AppierSign\RealtimeModel\Jobs\FirestoreJob  173.80ms DONE
+  2023-08-22 14:17:35 App\Jobs\FileUploadJob ......................... RUNNING
+  2023-08-22 14:17:36 App\Jobs\FileUploadJob ......................... 1s DONE
+  2023-08-22 14:24:09 AppierSign\RealtimeModel\Jobs\FirestoreJob ..... RUNNING
+  2023-08-22 14:24:09 AppierSign\RealtimeModel\Jobs\FirestoreJob  189.27ms DONE
+  2023-08-22 14:24:09 App\Jobs\FileUploadJob ......................... RUNNING
+  2023-08-22 14:24:10 App\Jobs\FileUploadJob ................... 765.85ms DONE
+  2023-08-22 14:30:50 AppierSign\RealtimeModel\Jobs\FirestoreJob ..... RUNNING
+  2023-08-22 14:30:50 AppierSign\RealtimeModel\Jobs\FirestoreJob  160.76ms DONE
+  2023-08-22 14:51:34 AppierSign\RealtimeModel\Jobs\FirestoreJob ..... RUNNING
+  2023-08-22 14:51:34 AppierSign\RealtimeModel\Jobs\FirestoreJob  191.95ms DONE
+  2023-08-22 14:57:13 AppierSign\RealtimeModel\Jobs\FirestoreJob ..... RUNNING
+  2023-08-22 14:57:13 AppierSign\RealtimeModel\Jobs\FirestoreJob  159.78ms DONE
+  2023-08-22 15:05:56 AppierSign\RealtimeModel\Jobs\FirestoreJob ..... RUNNING
+  2023-08-22 15:05:56 AppierSign\RealtimeModel\Jobs\FirestoreJob  170.96ms DONE
+  2023-08-22 15:19:40 AppierSign\RealtimeModel\Jobs\FirestoreJob ..... RUNNING
+  2023-08-22 15:19:40 AppierSign\RealtimeModel\Jobs\FirestoreJob  206.81ms DONE
+  2023-08-22 15:28:20 AppierSign\RealtimeModel\Jobs\FirestoreJob ..... RUNNING
+  2023-08-22 15:28:20 AppierSign\RealtimeModel\Jobs\FirestoreJob  179.47ms DONE
