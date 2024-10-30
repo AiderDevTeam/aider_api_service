@@ -1,0 +1,42 @@
+name: Production Deployment
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  docker_deploy:
+    name: Docker Deploy to Production
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        folder:
+          - api_gateway
+          - auth
+          - payment
+          - poynt
+          - proxy
+          - referral
+          - vendor
+          
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # Build and push the Docker image for each folder using the matrix in the strategy above
+      - name: Build and push ${{matrix.folder}} to prod environment
+        id: docker_build
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          file: ./${{matrix.folder}}/Dockerfile
+          context: ./${{matrix.folder}}
+          provenance: false
+          tags: aider24dev/images:${{matrix.folder}}-service-prod
+          build-args: REPOSITORY=aider24dev/images:${{matrix.folder}}-service-prod 
