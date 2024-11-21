@@ -29,7 +29,6 @@ class EmailNotificationJob implements ShouldQueue
      */
     public function handle(): void
     {
-        logger()->info('### DISPATCHING EMAIL NOTIFICATION JOB ###');
         try {
             logger()->info('### DISPATCHING EMAIL NOTIFICATION JOB ###');
             if ($this->user) {
@@ -50,7 +49,6 @@ class EmailNotificationJob implements ShouldQueue
             }
             logger()->info('### EMAIL NOTIFICATION JOB COMPLETED ###');
         } catch (Exception $exception) {
-            logger()->error('### EMAIL NOTIFICATION JOB ERROR ###', ['exception' => $exception]);
             report($exception);
         }
     }

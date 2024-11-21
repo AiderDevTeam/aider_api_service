@@ -5,59 +5,24 @@ namespace App\Http\Services\API;
 use Exception;
 use Illuminate\Support\Facades\Http;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Request;
-
 class EmailService
 {
     public static function send(string $recipientEmail, string $message, string $subject)
     {
-        logger('### SENDING EMAIL REQUEST TO KUDI-SMS API SERVICE ###');
         try {
-            logger('### SENDING EMAIL REQUEST TO KUDI-SMS API SERVICE ###');
+            logger()->info('### DISPATCHING EMAIL REQUEST TO API-GATEWAY ###');
 
+            $request = Http::withHeaders(jsonHttpHeaders())
+                ->post('api-gateway/api/send-email', [
+                    'recipientEmail' => $recipientEmail,
+                    'message' => $message,
+                    'subject' => $subject
+                ]);
 
-            $client = new Client();
-            $options = [
-                'multipart' => [
-                    [
-                        'name' => 'token',
-                        'contents' => env('KUDISMS_API_KEY')
-                    ],
-                    [
-                        'name' => 'senderEmail',
-                        'contents' => env('KUDI_SENDER_EMAIL')
-                    ],
-                    [
-                        'name' => 'senderName',
-                        'contents' => 'Aider'
-                    ],
-                    [
-                        'name' => 'senderFrom',
-                        'contents' => 'AIDER APP'
-                    ],
-                    [
-                        'name' => 'transactionName',
-                        'contents' => 'otp'
-                    ],
-                    [
-                        'name' => 'recipient',
-                        'contents' => $recipientEmail
-                    ],
-                    [
-                        'name' => 'subject',
-                        'contents' => $subject
-                    ],
-                    [
-                        'name' => 'message',
-                        'contents' => $message
-                    ]
-                ]];
-            $request = new Request('POST', env('KUDI_EMAIL_BASE_URL'));
-            $res = $client->sendAsync($request, $options)->wait();
+            logger()->info($request->json());
+            logger()->info('### STATUS ' . $request->status() . ' ###');
 
-            logger('### EMAIL RESPONSE FROM KUDI-SMS ###');
-            logger($res->getBody());
+            return $request->successful();
 
         } catch (Exception $exception) {
             report($exception);

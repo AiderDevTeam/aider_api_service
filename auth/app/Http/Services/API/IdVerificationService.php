@@ -41,7 +41,7 @@ class IdVerificationService
 
         try {
             logger('## FETCHING USER VERIFICATION DATA FROM API-GATEWAY ###');
-            logger($url = `api-gateway/api/get-id-verification-data?idNumber=` . $idNumber);
+            logger($url = 'api-gateway/api/get-id-verification-data?idNumber=' . $idNumber);
 
             sleep(3);
             $response = Http::withHeaders(jsonHttpHeaders())->get($url);
