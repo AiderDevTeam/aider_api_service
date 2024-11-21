@@ -56,7 +56,7 @@ class EmailService
             $request = new Request('POST', env('KUDI_EMAIL_BASE_URL'));
             $res = $client->sendAsync($request, $options)->wait();
 
-            logger('### EMAIL RESPONSE FROM KUDI-SMS ###');
+            logger('### EMAIL RESPONSE FROM KUDI-SMS SUCCESS ###');
             logger($res->getBody());
 
         } catch (Exception $exception) {
