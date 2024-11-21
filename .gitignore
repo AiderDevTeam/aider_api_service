@@ -3,3 +3,4 @@ mysql1
 mysqldata
 .env
 docker-compose.yml
+docker-compose.deploy.example
