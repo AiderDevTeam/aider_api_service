@@ -38,5 +38,5 @@ jobs:
           file: ./${{matrix.folder}}/Dockerfile
           context: ./${{matrix.folder}}
           provenance: false
-          tags: aider24dev/images:${{matrix.folder}}-service-prod
+          tags: aider24dev/images:${{matrix.folder}}-service-prod 
           build-args: REPOSITORY=aider24dev/images:${{matrix.folder}}-service-prod 
