@@ -3,6 +3,7 @@
 namespace App\Http\Actions\User;
 
 use App\Http\Requests\ForgotPasswordRequest;
+use App\Http\Services\API\EmailService;
 use App\Jobs\EmailNotificationJob;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -19,12 +20,14 @@ class ForgotPasswordAction
             $message = "Your One-Time Password (OTP) for verification is: $otp.\nThis will expire in 10 minutes.\n\nIf you did not request this, please ignore this email.\n\n- Aider";
             $subject = 'Forgot Password - OTP';
 
-            EmailNotificationJob::dispatch(
-                null,
-                $request->validated('email'),
-                $message,
-                $subject
-            )->onQueue('high');
+            EmailService::send($request->validated('email'), $message, $subject);
+
+            // EmailNotificationJob::dispatch(
+            //     null,
+            //     $request->validated('email'),
+            //     $message,
+            //     $subject
+            // )->onQueue('high');
 
             return successfulJsonResponse(['code' => $otp]);
 
