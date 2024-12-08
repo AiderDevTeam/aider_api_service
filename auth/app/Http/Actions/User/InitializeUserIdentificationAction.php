@@ -105,6 +105,11 @@ class InitializeUserIdentificationAction
         ];
         
         $userIdentification = $user->identifications()->create($newBody);
+        $user->update([
+            'id_verification_status' => 'completed',
+            'id_verified' => true,
+            'id_verified_at' => now()
+        ]);
         return ['verified' => true, 'message'=> 'BVN verification is Successful.', 'verificationData' => new UserIdentificationResource($userIdentification)];
     }
 
@@ -138,6 +143,13 @@ class InitializeUserIdentificationAction
         ];
         
         $userIdentification = $user->identifications()->create($newBody);
+
+        $user->update([
+            'id_verification_status' => 'completed',
+            'id_verified' => true,
+            'id_verified_at' => now()
+        ]);
+
         return ['verified' => true, 'message'=> 'NIN verification is Successful.', 'verificationData' => new UserIdentificationResource($userIdentification)];
     }
 
@@ -158,37 +170,6 @@ class InitializeUserIdentificationAction
             ->exists();
     }
 
-    private function verifyIdNumberWithSelfie(): void
-    {
-        logger('### PROCESSING ' . $this->userIdentification->formatType() . ' VERIFICATION ###');
-        try {
-            $selfieUrl = FileUploadService::uploadToImageService($this->data['selfie']);
-
-            $this->userIdentification->updateQuietly(['selfie_url' => $selfieUrl]);
-
-            $response = (new PremblyKYCService([
-                'number' => $this->userIdentification->id_number,
-                'image' => $selfieUrl,
-                'type' => $this->userIdentification->formatType()
-            ]))->idNumberWithSelfieVerification();
-
-            if (is_null($response) || !$response->successful()) {
-                $this->userIdentification->reject();
-                $this->userIdentification->rejectionReasons()->create(['reason' => json_decode($response, true)['errors'][0] ?? 'Verification Failed']);
-                return;
-            }
-
-            $this->userIdentification->update([
-                'status' => Identification::STATUS['ACCEPTED'],
-                'selfie_url' => $selfieUrl,
-                'verification_details' => $response->json()['data']
-            ]);
-
-        } catch (Exception $exception) {
-            $this->userIdentification->reject();
-            report($exception);
-        }
-    }
 
     private function verifyDocument(): void
     {
