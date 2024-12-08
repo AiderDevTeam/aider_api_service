@@ -57,7 +57,7 @@ class SendTransactionJob implements ShouldQueue
                     'campaign_id'
                 ]
             );
-             RewardService::sendCashReward($user, $transaction);
+            //  RewardService::sendCashReward($user, $transaction);
         }
     }
 

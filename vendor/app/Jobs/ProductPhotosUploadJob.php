@@ -1,29 +1,29 @@
-<?php
-
 namespace App\Jobs;
 
-use App\Http\Services\Api\FileUploadService;
-use App\Http\Services\GoogleDynamicLinksService;
 use App\Models\Product;
-use App\Models\Vendor;
-use Exception;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Foundation\Bus\Dispatchable;
 
 class ProductPhotosUploadJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    protected $product;
+    protected $photoUrls;
+
     /**
      * Create a new job instance.
+     *
+     * @param Product $product
+     * @param array $photoUrls
      */
-    public function __construct(private Product $product, private array $filePaths)
+    public function __construct(Product $product, array $photoUrls)
     {
-        //
+        $this->product = $product;
+        $this->photoUrls = $photoUrls;
     }
 
     /**
@@ -31,20 +31,8 @@ class ProductPhotosUploadJob implements ShouldQueue
      */
     public function handle(): void
     {
-        logger()->info('### PRODUCT PHOTOS UPLOAD JOB DISPATCHED ###');
-        try {
-
-            foreach ($this->filePaths as $path) {
-
-                $photoUrl = FileUploadService::uploadToImageService($path);
-
-                if (!is_null($photoUrl))
-                    $this->product->photos()->create(['photo_url' => $photoUrl]);
-            }
-
-        } catch (Exception $exception) {
-            report($exception);
+        foreach ($this->photoUrls as $photoUrl) {
+            $this->product->photos()->create(['photo_url' => $photoUrl]);
         }
-        logger()->info('### PRODUCT PHOTOS UPLOAD COMPLETED ###');
     }
 }

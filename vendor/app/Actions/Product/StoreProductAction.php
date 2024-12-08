@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use function PHPUnit\Framework\isEmpty;
+use Cloudinary;
 
 class StoreProductAction
 {
@@ -38,9 +39,10 @@ class StoreProductAction
             $this->storePrices($product, $data['prices']);
 
             $this->storeAddress($product, $productRequest, $request->user);
-
+            
             //upload product images and set product share link
-            ProductPhotosUploadJob::dispatch($product, $this->getLocalPaths($productRequest))->onQueue('high');
+            $this->storeProductImages($product, $productRequest);
+            // ProductPhotosUploadJob::dispatch($product,$productRequest)->onQueue('high');
 
             DB::commit();
 
@@ -102,5 +104,30 @@ class StoreProductAction
             report($exception);
         }
         return [];
+    }
+
+    private function storeProductImages(Product $product, StoreProductRequest $request): void
+    {
+        logger()->info('### PRODUCT PHOTOS UPLOAD STARTED ###');
+        try {
+            $photoUrls = [];
+
+            foreach ($request->file('photos') as $file) {                
+                $photoUrl = Cloudinary::upload($file->getRealPath())->getSecurePath();
+                if (!is_null($photoUrl)) {
+                    $photoUrls[] = $photoUrl;
+                }
+            }
+
+            if (!empty($photoUrls)) {
+                foreach ($photoUrls as $photoUrl) {
+                    $product->photos()->create(['photo_url' => $photoUrl]);
+                }
+            }
+        } catch (Exception $exception) {
+            report($exception);
+            logger()->error('Error during product photo upload: ' . $exception->getMessage());
+        }
+        logger()->info('### PRODUCT PHOTOS UPLOAD COMPLETED ###');
     }
 }

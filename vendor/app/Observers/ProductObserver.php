@@ -33,7 +33,7 @@ class ProductObserver
     public function created(Product $product): void
     {
         $product->recordItemListedCount();
-        $this->notificationService->sendNotification('productListed');
+        // $this->notificationService->sendNotification('productListed');
     }
 
     /**

@@ -24,6 +24,10 @@ class UserIdentification extends Model
         'status'
     ];
 
+    protected $casts = [
+        'verification_details' => 'array',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

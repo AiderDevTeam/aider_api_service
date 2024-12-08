@@ -6,6 +6,7 @@ use App\Http\Requests\ProfilePhotoUploadRequest;
 use App\Http\Services\API\FileUploadService;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Cloudinary;
 
 class ProfilePhotoUploadAction
 {
@@ -14,11 +15,9 @@ class ProfilePhotoUploadAction
         logger('### UPDATING PROFILE PHOTO ###');
         try {
 
-            if ($path = $this->getLocalPath($request)) {
-                $imageFile = FileUploadService::uploadToImageService($path);
-                if (auth()->user()->update(['profile_photo_url' => $imageFile]))
-                    return successfulJsonResponse();
-            }
+            $imageFile = Cloudinary::upload($request->file('profilePhoto')->getRealPath())->getSecurePath();
+            if (auth()->user()->update(['profile_photo_url' => $imageFile]))
+                return successfulJsonResponse();
 
         } catch (Exception $exception) {
             report($exception);
