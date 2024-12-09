@@ -29,6 +29,7 @@ Route::prefix('user')->group(function () {
 
     Route::prefix('identification')->group(function () {
         Route::post('/initialize', [UserIdentificationController::class, 'initialize']);
+        Route::get('/getUserKYC', [UserIdentificationController::class, 'getUserKYC']);
     });
 
 });

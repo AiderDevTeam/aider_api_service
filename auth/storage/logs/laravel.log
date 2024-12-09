@@ -1,0 +1,18 @@
+[2024-12-09 07:43:33] local.INFO: ### AUTHENTICATING USER ###  
+[2024-12-09 07:43:33] local.DEBUG: array (
+  'email' => 'samsonajaloleru@gmail.com',
+  'deviceOs' => 'android',
+  'pushNotificationToken' => NULL,
+)  
+[2024-12-09 07:43:37] local.INFO: ### USER AUTHENTICATED ###  
+[2024-12-09 07:43:39] local.DEBUG: ### FETCHING USER IDENTIFICATION ###  
+[2024-12-09 07:45:44] local.DEBUG: ### FETCHING USER IDENTIFICATION ###  
+[2024-12-09 07:46:22] local.DEBUG: ### FETCHING USER IDENTIFICATION ###  
+[2024-12-09 07:49:21] local.INFO: ### AUTHENTICATING USER ###  
+[2024-12-09 07:49:22] local.DEBUG: array (
+  'email' => 'samsonajaloleru+4567@gmail.com',
+  'deviceOs' => 'android',
+  'pushNotificationToken' => NULL,
+)  
+[2024-12-09 07:49:25] local.INFO: ### USER AUTHENTICATED ###  
+[2024-12-09 07:50:01] local.DEBUG: ### FETCHING USER IDENTIFICATION ###  
